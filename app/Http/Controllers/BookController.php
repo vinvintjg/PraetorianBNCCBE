@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
 
+
 class BookController extends Controller
 {
     //
@@ -67,6 +68,41 @@ class BookController extends Controller
 
         return redirect(route('getBooks'));
     }
+
+
+    // API
+    public function apiGetBooks(){
+
+        $books = Book::with('category')->get();
+        $categories = Category::with('book')->get();
+
+        return $categories;
+    }
+
+    public function apiAddCategory(Request $request){
+
+        $category = Category::create([
+            'category_name' => $request->category_name,
+        ]);
+
+        return 'SUCCESS ADD CATEGORY';
+    }
+
+    public function apiDeleteCategory($id){
+        Category::destroy($id);
+
+        return 'SUCCESS DELETE CATEGORY';
+    }
+
+    public function apiUpdateCategory(Request $request, $id){
+        $category = Category::find($id);
+        $category -> update([
+            'category_name' => $request->category_name,
+        ]);
+
+        return 'SUCCESS UPDATE CATEGORY';
+    }
+
 
 
 }

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\BuyerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,3 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/get-category', [BookController::class, 'apiGetBooks']);
+
+Route::post('/create-category', [BookController::class, 'apiAddCategory']);
+
+Route::delete('/delete-category/{id}', [BookController::class, 'apiDeleteCategory']);
+
+Route::patch('/update-category/{id}',[BookController::class, 'apiUpdateCategory']);
